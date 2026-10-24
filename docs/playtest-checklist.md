@@ -9,8 +9,9 @@ From `docs/superpowers/specs/2026-10-24-ant-farm-design.md`. Fill in the results
 3. Connect and unlock the iPhone, select it as the run destination, press Run.
 4. First launch only: on the phone, Settings → General → VPN & Device Management → trust the developer app.
 
-Rebuild after code changes: in Unity, `unity command build --target iOS --outputPath Builds/iOS --options Development`
-(or File → Build Profiles → iOS → Build), choose *Append* when asked.
+Rebuild after code changes (replaces `Builds/iOS`, so re-tick signing in Xcode afterwards):
+`unity command build --target iOS --outputPath Builds/iOS --options '["Development"]' --confirm true`
+(or File → Build Profiles → iOS → Build, and choose *Append* to keep Xcode signing).
 
 ## Debug panel
 
