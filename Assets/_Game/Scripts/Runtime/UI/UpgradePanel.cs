@@ -45,6 +45,7 @@ namespace Game.UI
 
             float cardHeight = TitleHeight + rows.Length * (RowHeight + RowGap) + CardPadding * 2f;
             Image card = UiKit.Panel("Card", dim.transform, UiKit.BarColor);
+            card.gameObject.AddComponent<ClickBlocker>(); // taps on the card must not reach the dim's Close
             RectTransform cardRect = UiKit.Place(card.rectTransform, new Vector2(0.05f, 0.5f), new Vector2(0.95f, 0.5f),
                 new Vector2(0f, -cardHeight / 2f), new Vector2(0f, cardHeight / 2f));
 

@@ -14,6 +14,8 @@ namespace Game.Sim
         internal float Timer;
         internal float DigProgress;
         internal float TripTiles;
+        /// <summary>DirtGrid.OpenedTiles when DiggingOut last checked connectivity; -1 forces a check.</summary>
+        internal int ConnectivityCheckedAt = -1;
 
         internal Ant(int id, Vector2 position)
         {
@@ -24,7 +26,7 @@ namespace Game.Sim
         public int Id { get; }
 
         /// <summary>World position (one tile = one unit).</summary>
-        public Vector2 Position { get; set; }
+        public Vector2 Position { get; internal set; }
 
         public AntState State { get; private set; } = AntState.ToDig;
         public int Carrying { get; internal set; }
@@ -41,6 +43,7 @@ namespace Game.Sim
             PathIndex = 0;
             Timer = 0f;
             DigProgress = 0f;
+            ConnectivityCheckedAt = -1;
         }
     }
 }

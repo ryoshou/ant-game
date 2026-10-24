@@ -39,6 +39,9 @@ namespace Game.World
         /// <summary>Incremented on every change; lets observers cheaply detect that the grid moved on.</summary>
         public int Version { get; private set; }
 
+        /// <summary>Incremented whenever a tile becomes open (dug empty, restored, reset) — connectivity can only grow then.</summary>
+        public int OpenedTiles { get; private set; }
+
         /// <summary>One tile's dirt amount changed.</summary>
         public event Action<Vector2Int> CellChanged;
 
@@ -70,6 +73,7 @@ namespace Game.World
             if (removed == 0) return 0;
             cells[index] = (byte)(cells[index] - removed);
             TotalDirt -= removed;
+            if (cells[index] == 0) OpenedTiles++;
             Changed(c);
             return removed;
         }
@@ -90,6 +94,7 @@ namespace Game.World
         {
             FillAllExceptBase();
             Version++;
+            OpenedTiles++;
             Reloaded?.Invoke();
         }
 
@@ -103,6 +108,7 @@ namespace Game.World
             TotalDirt = 0;
             for (int i = 0; i < cells.Length; i++) TotalDirt += cells[i];
             Version++;
+            OpenedTiles++;
             Reloaded?.Invoke();
             return true;
         }

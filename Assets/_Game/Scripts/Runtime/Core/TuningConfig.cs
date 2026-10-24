@@ -27,6 +27,9 @@ namespace Game.Core
         [Header("Player")]
         [Min(0.1f)] public float killRadiusTiles = 0.6f;
         [Min(0.1f)] public float brushRadiusTiles = 0.7f;
+        [Tooltip("A dirt stroke waits this long (or for the finger to move) so a pinch's first finger paints nothing.")]
+        [Min(0f)] public float dirtStrokeDelaySeconds = 0.08f;
+        [Min(0f)] public float dirtStrokeMovePixels = 12f;
         [Min(1f)] public float autosaveSeconds = 30f;
         [Tooltip("Show the one-time 'paint near the base' hint once the average trip exceeds this many tiles.")]
         [Min(1f)] public float paintHintTripTiles = 15f;

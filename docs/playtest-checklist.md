@@ -37,6 +37,8 @@ length and dirt left on the map; edits base cost / growth / per-level per upgrad
 ## Frame-rate floor
 
 Debug panel → *Max colony size* → *Fill colony* (45 ants). Squish and paint continuously for 60 s.
+Then let the ants spread out, paint a closed ring of dirt around the base (every outside ant is walled off and
+starts digging back in), and watch FPS while they tunnel home.
 
 | Device | Min FPS seen | Typical FPS | Notes |
 |---|---|---|---|

@@ -27,6 +27,9 @@ namespace Game.Controls
         private readonly List<RaycastResult> uiHits = new List<RaycastResult>(8);
         private PointerEventData pointerData;
         private bool isIgnoringStroke;
+        private bool isDirtPending;
+        private Vector2 pendingStart;
+        private float pendingSince;
 
         public InteractMode Mode { get; private set; } = InteractMode.Kill;
 
@@ -51,6 +54,8 @@ namespace Game.Controls
             ReadPointers(out int count, out Vector2 p0, out Vector2 p1);
             tracker.Step(count, p0, p1, events);
             for (int i = 0; i < events.Count; i++) Handle(events[i]);
+            if (isDirtPending && Time.unscaledTime - pendingSince >= bootstrap.Config.dirtStrokeDelaySeconds)
+                StartPendingDirt(pendingStart);
             HandleScrollZoom();
         }
 
@@ -84,13 +89,21 @@ namespace Game.Controls
             {
                 case GestureKind.StrokeBegin:
                     isIgnoringStroke = IsOverUi(e.To);
-                    if (!isIgnoringStroke) ApplyStroke(e.To, e.To);
+                    if (isIgnoringStroke) break;
+                    if (Mode == InteractMode.Dirt) BeginPendingDirt(e.To);
+                    else ApplyStroke(e.To, e.To);
                     break;
                 case GestureKind.StrokeMove:
-                    if (!isIgnoringStroke) ApplyStroke(e.From, e.To);
+                    if (isIgnoringStroke) break;
+                    if (!isDirtPending) ApplyStroke(e.From, e.To);
+                    else if (Vector2.Distance(e.To, pendingStart) >= bootstrap.Config.dirtStrokeMovePixels) StartPendingDirt(e.To);
                     break;
                 case GestureKind.StrokeEnd:
+                    if (isDirtPending) StartPendingDirt(pendingStart); // a quick tap paints on release
+                    isIgnoringStroke = false;
+                    break;
                 case GestureKind.StrokeCancel:
+                    isDirtPending = false; // a pinch's first finger paints nothing
                     isIgnoringStroke = false;
                     break;
                 case GestureKind.Pan:
@@ -100,6 +113,23 @@ namespace Game.Controls
                     cameraRig.PinchZoom(e.To, e.Scale);
                     break;
             }
+        }
+
+        /// <summary>
+        /// Dirt strokes wait briefly (or for movement) before painting, so the first finger of a pinch paints nothing.
+        /// Kill strokes stay instant.
+        /// </summary>
+        private void BeginPendingDirt(Vector2 screen)
+        {
+            isDirtPending = true;
+            pendingStart = screen;
+            pendingSince = Time.unscaledTime;
+        }
+
+        private void StartPendingDirt(Vector2 toScreen)
+        {
+            isDirtPending = false;
+            ApplyStroke(pendingStart, toScreen);
         }
 
         /// <summary>Applies one stroke step between two screen points according to the current mode.</summary>

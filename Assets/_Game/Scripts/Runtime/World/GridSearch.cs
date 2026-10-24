@@ -23,6 +23,9 @@ namespace Game.World
         private readonly int[] candidateStamp;
         private int stamp;
 
+        /// <summary>How many searches have run — a cost probe for tests and the debug panel.</summary>
+        internal int RunCount => stamp;
+
         public GridSearch(DirtGrid grid)
         {
             this.grid = grid;

@@ -7,6 +7,7 @@ using Game.UI;
 using Game.World;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
@@ -78,6 +79,50 @@ namespace Game.Tests
         }
 
         [UnityTest]
+        public IEnumerator DirtMode_PinchStartingStroke_PaintsNothing()
+        {
+            var cell = new Vector2Int(bootstrap.Grid.BaseRect.xMin - 1, bootstrap.Grid.BaseCenter.y);
+            bootstrap.Grid.Dig(cell, 255);
+            router.SetMode(InteractMode.Dirt);
+            Vector2 screen = ScreenOfCell(cell);
+
+            router.Handle(new GestureEvent(GestureKind.StrokeBegin, screen, screen));
+            router.Handle(new GestureEvent(GestureKind.StrokeCancel, screen, screen));
+            yield return new WaitForSecondsRealtime(0.2f);
+
+            Assert.AreEqual(0, bootstrap.Grid.DirtAt(cell));
+        }
+
+        [UnityTest]
+        public IEnumerator DirtMode_QuickTap_PaintsOnRelease()
+        {
+            var cell = new Vector2Int(bootstrap.Grid.BaseRect.xMin - 1, bootstrap.Grid.BaseCenter.y);
+            bootstrap.Grid.Dig(cell, 255);
+            router.SetMode(InteractMode.Dirt);
+            Vector2 screen = ScreenOfCell(cell);
+
+            router.Handle(new GestureEvent(GestureKind.StrokeBegin, screen, screen));
+            router.Handle(new GestureEvent(GestureKind.StrokeEnd, screen, screen));
+            yield return null;
+
+            Assert.AreEqual(bootstrap.Grid.DirtPerTile, bootstrap.Grid.DirtAt(cell));
+        }
+
+        [UnityTest]
+        public IEnumerator UpgradePanel_TapOnCard_KeepsItOpen()
+        {
+            var panel = Object.FindAnyObjectByType<UpgradePanel>();
+            panel.Open();
+            yield return null;
+            GameObject card = panel.RowFor(UpgradeId.WalkSpeed).transform.parent.gameObject;
+
+            ExecuteEvents.ExecuteHierarchy(card, new PointerEventData(EventSystem.current), ExecuteEvents.pointerClickHandler);
+            yield return null;
+
+            Assert.IsTrue(panel.IsOpen);
+        }
+
+        [UnityTest]
         public IEnumerator KillMode_TapKillsAntUnderFinger()
         {
             router.SetMode(InteractMode.Kill);
@@ -94,7 +139,9 @@ namespace Game.Tests
         public IEnumerator StrokeStartingOnUi_IsIgnored()
         {
             router.SetMode(InteractMode.Kill);
-            var underBar = new Vector2(Screen.width * 0.5f, 10f);
+            var corners = new Vector3[4];
+            ((RectTransform)Object.FindAnyObjectByType<ModeSwitcher>().ButtonFor(InteractMode.Dirt).transform).GetWorldCorners(corners);
+            Vector2 underBar = (corners[0] + corners[2]) * 0.5f; // overlay canvas: world corners are screen pixels
             Vector2 world = cam.ScreenToWorldPoint(new Vector3(underBar.x, underBar.y, 10f));
             bootstrap.Colony.Ants[0].Position = world;
             int before = bootstrap.Colony.Count;

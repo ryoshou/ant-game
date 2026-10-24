@@ -204,6 +204,24 @@ namespace Game.Tests
         }
 
         [Test]
+        public void DiggingOut_ChecksConnectivityOnlyWhenATileOpens()
+        {
+            Colony colony = NewColony(1);
+            Open(0, 0); Open(1, 0); Open(0, 1); Open(1, 1);
+            Ant ant = colony.Ants[0];
+            ant.Position = Center(0, 0);
+            ant.Enter(AntState.Returning);
+            ant.Carrying = 2;
+            colony.Tick(Step);
+            Assert.AreEqual(AntState.DiggingOut, ant.State);
+
+            int before = colony.Search.RunCount;
+            Run(colony, 1f); // digging at 2 dirt/s opens no 10-dirt tile within a second
+
+            Assert.LessOrEqual(colony.Search.RunCount - before, 1);
+        }
+
+        [Test]
         public void NoDirtLeft_AntsIdleNearBase_ThenResumeWhenDirtPainted()
         {
             for (int y = 0; y < 9; y++)

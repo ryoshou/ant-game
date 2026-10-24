@@ -173,10 +173,15 @@ namespace Game.Sim
         private static void StepDiggingOut(Ant ant, float dt, Colony colony)
         {
             Vector2Int cell = colony.CellOf(ant);
-            if (colony.Search.IsConnectedToBase(cell))
+            // Connectivity only grows when a tile opens, so search again only after one has.
+            if (ant.ConnectivityCheckedAt != colony.Grid.OpenedTiles)
             {
-                ant.Enter(AntState.Returning);
-                return;
+                ant.ConnectivityCheckedAt = colony.Grid.OpenedTiles;
+                if (colony.Search.IsConnectedToBase(cell))
+                {
+                    ant.Enter(AntState.Returning);
+                    return;
+                }
             }
 
             Vector2Int next = StepTowardBase(cell, colony);
