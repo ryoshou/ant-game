@@ -28,6 +28,8 @@ namespace Game.Core
         [Min(0.1f)] public float killRadiusTiles = 0.6f;
         [Min(0.1f)] public float brushRadiusTiles = 0.7f;
         [Min(1f)] public float autosaveSeconds = 30f;
+        [Tooltip("Show the one-time 'paint near the base' hint once the average trip exceeds this many tiles.")]
+        [Min(1f)] public float paintHintTripTiles = 15f;
 
         [Header("Camera (tiles visible across the screen)")]
         [Min(1f)] public float defaultTilesAcross = 18f;

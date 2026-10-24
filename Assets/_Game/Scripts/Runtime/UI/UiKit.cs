@@ -61,6 +61,19 @@ namespace Game.UI
             return text;
         }
 
+        public static InputField NumberField(string name, Transform parent, int fontSize, UnityAction<string> onEndEdit)
+        {
+            Image background = Panel(name, parent, MutedTextColor * 0.35f);
+            var field = background.gameObject.AddComponent<InputField>();
+            Text text = Label("Text", background.transform, fontSize, TextAnchor.MiddleCenter, TextColor);
+            text.supportRichText = false;
+            field.textComponent = text;
+            field.targetGraphic = background;
+            field.contentType = InputField.ContentType.DecimalNumber;
+            field.onEndEdit.AddListener(onEndEdit);
+            return field;
+        }
+
         public static Button Button(string name, Transform parent, string caption, int fontSize, UnityAction onClick,
             out Text label)
         {
