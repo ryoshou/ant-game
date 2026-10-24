@@ -17,6 +17,9 @@ namespace Game.Controls
 
         public Camera Camera => cam;
 
+        /// <summary>Extra world offset added after clamping (camera shake); never moves the clamped centre.</summary>
+        public Vector2 ShakeOffset { get; set; }
+
         private void Awake()
         {
             cam = GetComponent<Camera>();
@@ -57,7 +60,7 @@ namespace Game.Controls
             if (bootstrap.Grid == null) return;
             cam.orthographicSize = CameraMath.OrthoSizeForTilesAcross(tilesAcross, cam.aspect);
             center = CameraMath.ClampCenter(center, cam.orthographicSize, cam.aspect, bootstrap.Grid.Width, bootstrap.Grid.Height);
-            transform.position = new Vector3(center.x, center.y, CameraZ);
+            transform.position = new Vector3(center.x + ShakeOffset.x, center.y + ShakeOffset.y, CameraZ);
         }
     }
 }

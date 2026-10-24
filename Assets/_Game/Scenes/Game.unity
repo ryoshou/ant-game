@@ -390,6 +390,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &814555328
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 814555329}
+  - component: {fileID: 814555330}
+  m_Layer: 0
+  m_Name: TierUp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &814555329
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814555328}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1678077047}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &814555330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814555328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8848f21237874c858d291dd5371ba27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::Game.Juice.TierUpFeedback
+  baseView: {fileID: 194304196}
+  config: {fileID: 11400000, guid: 076373e11042c427a8a6c3be31ad3c6a, type: 2}
+  sfx: {fileID: 1678077046}
 --- !u!1 &845990634
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,6 +878,7 @@ GameObject:
   - component: {fileID: 1400336330}
   - component: {fileID: 1400336329}
   - component: {fileID: 1400336328}
+  - component: {fileID: 1400336331}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -916,6 +964,172 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &1400336331
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400336327}
+  m_Enabled: 1
+--- !u!1 &1678077041
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1678077047}
+  - component: {fileID: 1678077046}
+  - component: {fileID: 1678077045}
+  - component: {fileID: 1678077044}
+  - component: {fileID: 1678077043}
+  - component: {fileID: 1678077042}
+  m_Layer: 0
+  m_Name: Juice
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1678077042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678077041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f4ff8ba45aa4d1bb65a66f93295ec3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::Game.Juice.UiBlipFeedback
+  bootstrap: {fileID: 2114516907}
+  router: {fileID: 871468390}
+  sfx: {fileID: 1678077046}
+--- !u!114 &1678077043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678077041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65237f222a4e543e988794badfdf55a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::Game.Juice.PaintFeedback
+  router: {fileID: 871468390}
+  config: {fileID: 11400000, guid: 076373e11042c427a8a6c3be31ad3c6a, type: 2}
+  sfx: {fileID: 1678077046}
+--- !u!114 &1678077044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678077041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c405ece818a48492bb4ee2aded77b00f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::Game.Juice.SquishFeedback
+  bootstrap: {fileID: 2114516907}
+  config: {fileID: 11400000, guid: 076373e11042c427a8a6c3be31ad3c6a, type: 2}
+  sfx: {fileID: 1678077046}
+  splats: {fileID: 1839018897}
+  shake: {fileID: 1678077045}
+--- !u!114 &1678077045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678077041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62e45f167193e4b94a93baff063db836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::Game.Juice.CameraShake
+  config: {fileID: 11400000, guid: 076373e11042c427a8a6c3be31ad3c6a, type: 2}
+  cameraRig: {fileID: 1400336328}
+--- !u!114 &1678077046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678077041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e2272db942634c5692fb6cbf95e06c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::Game.Juice.SfxPlayer
+  config: {fileID: 11400000, guid: 076373e11042c427a8a6c3be31ad3c6a, type: 2}
+  presets: {fileID: 11400000, guid: c441e5e38ed0b48d5ba03d62fc7debc9, type: 2}
+--- !u!4 &1678077047
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678077041}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1839018898}
+  - {fileID: 814555329}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1839018896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1839018898}
+  - component: {fileID: 1839018897}
+  m_Layer: 0
+  m_Name: Splats
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1839018897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839018896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35a9cd74ed1c4442580fb3dbcd889615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Runtime::Game.Juice.SplatPool
+  config: {fileID: 11400000, guid: 076373e11042c427a8a6c3be31ad3c6a, type: 2}
+--- !u!4 &1839018898
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839018896}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1678077047}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1886504626
 GameObject:
@@ -1024,3 +1238,4 @@ SceneRoots:
   - {fileID: 871468391}
   - {fileID: 1296799275}
   - {fileID: 845990638}
+  - {fileID: 1678077047}
